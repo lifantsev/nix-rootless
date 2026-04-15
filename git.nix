@@ -11,10 +11,15 @@
             tag.forceSignAnnotated = true;
 
             # update gpg tty so that gpg-agent binds pinentry to correct term
-            core.sshCommand = "${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1; ssh";
+            core.sshCommand = "${pkgs.gnupg}/bin/gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1; ssh -F ~/.ssh/config";
         };
     };
     
+    programs.ssh = { # just b/c ssh doesnt trust global config
+        enable = true;
+        enableDefaultConfig = false;
+        matchBlocks."*" = {};
+    };
 
     programs.diff-so-fancy = {
         enable = true;
