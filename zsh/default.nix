@@ -49,7 +49,7 @@
             gitstylealt   = "red";
         in {
             add_newline = true;
-            format = "$git_status$directory";
+            format = "$git_status[seas:](${dirstyle})$directory";
 
             directory = {
                 truncation_length = 0;
@@ -68,11 +68,11 @@
                 diverged   = "><";
 
                 untracked = " nw";
-                stashed   = " $$";
                 modified  = " ch";
                 staged    = " gc";
                 renamed   = " mv";
                 deleted   = " rm";
+                stashed   = " $$";
             };
         };
     };
