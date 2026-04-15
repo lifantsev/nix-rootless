@@ -1,6 +1,6 @@
 bindkey '^H' fzf-history-widget
 
-function copy_buffer() { wl-copy -n <<< "$BUFFER"; }
+function copy_buffer() { copy "$BUFFER"; }
 zle -N copy_buffer
 bindkey "^Y" copy_buffer # ctrl Y
 
