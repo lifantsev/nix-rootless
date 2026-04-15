@@ -1,5 +1,5 @@
 a() {
-    lastdir="$(lf -print-last-dir "$(xioxide paths "$1")")"
+    lastdir="$(lf -print-last-dir "$1")"
     if [ -f /tmp/lfcd ]; then e "$lastdir" ; rm /tmp/lfcd; fi
 }
 hm() {

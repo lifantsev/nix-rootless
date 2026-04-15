@@ -44,9 +44,9 @@
     programs.starship = {
         enable = true;
         settings = let
-            dirstyle      = "blue";
-            gitstyle      = "purple";
-            gitstylealt   = "red";
+            dirstyle      = "red";
+            gitstyle      = "blue";
+            gitstylealt   = "purple";
         in {
             add_newline = true;
             format = "$git_status[seas:](${dirstyle})$directory";
