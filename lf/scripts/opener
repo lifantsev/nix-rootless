@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+type="$(file --dereference --brief --mime-type -- "$f")"
+
+case "$type" in
+    inode/directory) lf --remote "send $id cd \"$f\"" ;;
+    *) lf --remote "send $id \$nvim \"$f\"" ;;
+esac

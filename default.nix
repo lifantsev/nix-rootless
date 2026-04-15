@@ -10,15 +10,16 @@
     in map (name: ./. + "/${name}") (builtins.attrNames imports);
 
     home.packages = with pkgs; [
-        neovim
-        zsh
-
-        eza
-
         (pkgs.writeShellScriptBin "copy" ''
             b64=$(printf "%s" "$1" | base64 | tr -d '\n')
             printf "\033]52;c;%s\007" "$b64" > /dev/tty
         '')
+
+        neovim
+        lf trash-cli
+        zsh
+
+        eza
     ];
 
     home.sessionVariables = {
