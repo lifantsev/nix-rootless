@@ -6,6 +6,15 @@ hm() {
     echo "running home-manager switch..."
     home-manager switch -f ~/nix-rootless/
 }
+hmdd() {
+    echo "removing all but current generation..."
+    home-manager expire-generations "-0 days"
+    nix-collect-garbage -d
+}
+qta() {
+    . /etc/profile
+    quota -s 2>/dev/null
+}
 n() {
     if [ "$(ls -a | wc -l)" -gt 20 ];
     then eza -al --no-user --no-permissions --no-filesize --no-time -G
