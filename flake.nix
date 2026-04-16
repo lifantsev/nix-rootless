@@ -7,7 +7,7 @@
         home-manager.url = "github:nix-community/home-manager/release-25.11";
         home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-        # lifantsev-nixvim.url = "github:lifantsev/nixvim";
+        lifantsev-nixvim.url = "github:lifantsev/nixvim";
     };
 
     outputs = { nixpkgs, home-manager, ... }@inputs: let
@@ -16,7 +16,7 @@
     in {
         homeConfigurations."marklif" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
-            extraSpecialArgs = { inherit inputs; };
+            extraSpecialArgs = { inherit inputs system; };
             modules = [ ./home ];
         };
     };

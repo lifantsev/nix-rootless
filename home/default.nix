@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, system, ... }: {
     home.username = "marklif";
     home.homeDirectory = "/w/home.19/home/marklif";
 
@@ -10,18 +10,18 @@
     ];
 
     home.packages = with pkgs; [
+        nix
+
         (pkgs.writeShellScriptBin "copy" ''
             b64=$(printf "%s" "$1" | base64 | tr -d '\n')
             printf "\033]52;c;%s\007" "$b64" > /dev/tty
             '')
 
-        neovim
+        inputs.lifantsev-nixvim.packages.${system}.default
+
         lf trash-cli
         zsh
-
         eza
-
-        nix
     ];
 
     home.sessionVariables = {
