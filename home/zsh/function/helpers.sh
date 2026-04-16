@@ -4,7 +4,7 @@ a() {
 }
 hm() {
     echo "running home-manager switch..."
-    home-manager switch -f ~/nix-rootless/
+    home-manager switch -f ~/nix-rootless/ --show-trace
 }
 hmdd() {
     echo "removing all but current generation..."
@@ -12,8 +12,10 @@ hmdd() {
     nix-collect-garbage -d
 }
 qta() {
-    . /etc/profile
+    . /etc/profile 2>/dev/null
     quota -s 2>/dev/null
+    echo
+    df -i .
 }
 n() {
     if [ "$(ls -a | wc -l)" -gt 20 ];
