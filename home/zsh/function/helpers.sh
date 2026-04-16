@@ -4,7 +4,7 @@ a() {
 }
 hm() {
     echo "running home-manager switch..."
-    home-manager switch -f ~/nix-rootless/ --show-trace
+    home-manager switch --flake ~/nix-rootless/ --show-trace "$@"
 }
 hmdd() {
     echo "removing all but current generation..."
