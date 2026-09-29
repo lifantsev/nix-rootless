@@ -1,5 +1,5 @@
 # Installing Nix
-[https://nixos.wiki/wiki/Nix_Installation_Guide#Installing_without_root_permissions](guide for rootless nix installation)
+[guide for rootless nix installation](https://nixos.wiki/wiki/Nix_Installation_Guide#Installing_without_root_permissions)
 
 We'll use [nix-user-chroot](https://github.com/nix-community/nix-user-chroot). Download a [prebuilt binary](https://github.com/nix-community/nix-user-chroot/releases):
 ```
@@ -29,7 +29,7 @@ nix-channel --update # this will take a while to run
 ```
 
 # Installing Home Manager
-[https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone](home-manager standalone installation guide)
+[home-manager standalone installation guide](https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone)
 
 Add the home manager channel, using the same version number as your nixpkgs channel:
 ```
@@ -92,6 +92,3 @@ Now that nixpkgs and home-manager are managed by your flake, you can remove the 
 nix-channel --remove nixpkgs
 nix-channel --remove home-manager
 ```
-
-# Installing this specific configuration
-First clone the repo into some folder.
