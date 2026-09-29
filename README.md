@@ -2,26 +2,26 @@
 [guide for rootless nix installation](https://nixos.wiki/wiki/Nix_Installation_Guide#Installing_without_root_permissions)
 
 We'll use [nix-user-chroot](https://github.com/nix-community/nix-user-chroot). Download a [prebuilt binary](https://github.com/nix-community/nix-user-chroot/releases):
-```
+``` sh
 # replace <url> with the url of a binary from the releases page, should look something like:
 # https://github.com/nix-community/nix-user-chroot/releases/download/2.1.1/nix-user-chroot-bin-2.1.1-x86_64-unknown-linux-musl
 curl -L <url> -o ~/.local/bin/nix-user-chroot
 ```
 
 Now let's create the nix store and install the nix utility suite.
-```
+``` sh
 mkdir -m 0755 ~/.nix
 ~/.local/bin/nix-user-chroot ~/.nix bash -c 'curl -L https://nixos.org/nix/install | sh'
 ```
 
 Now you can enter a chrooted shell and verify nix is installed:
-```
+``` sh
 ~/.local/bin/nix-user-chroot ~/.nix $SHELL -l
 nix --version
 ```
 
 Switch off of unstable nixpkgs (use latest [stable release](https://channels.nixos.org/) instead) here I'll use 25.11:
-```
+``` sh
 nix-channel --remove nixpkgs
 nix-channel --add https://channels.nixos.org/nixos-25.11 nixpkgs
 nix-channel --list # check that changes have applied
@@ -32,19 +32,19 @@ nix-channel --update # this will take a while to run
 [home-manager standalone installation guide](https://nix-community.github.io/home-manager/index.xhtml#sec-install-standalone)
 
 Add the home manager channel, using the same version number as your nixpkgs channel:
-```
+``` sh
 nix-channel --add https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz home-manager
 nix-channel --update # this will take a while
 ```
 
 Install home manager:
-```
+``` sh
 nix-shell '<home-manager>' -A install # this will take a while
 ```
 
 # Finishing the bootstrap
 At this point, we have nix installed using nix-env, but it would be nice to manage it with home-manager (to use settings like nix.settings.experimental-features). In order to do this, we have to uninstall it from nix-env and simultaneously install it from home-manager. First ensure these lines are present in your `home.nix`:
-```
+``` nix
 home.packages = [ # let home-manager manage nix installation
     pkgs.nix
 ];
@@ -53,7 +53,7 @@ programs.home-manager.enable = true; # let home-manager manage itself
 ```
 
 Then run these commands to 'hand off' control to home-manager:
-```
+``` sh
 nix-shell -p nix home-manager # create a temporary subshell where we have access to nix & home-manager
 
 in subshell: nix-env -e nix home-manager-path # remove packages
@@ -66,7 +66,7 @@ nix --version # verify nix is still installed
 
 # Running nix-user-chroot on login
 It would be nice not to have to run `nix-user-chroot` on every login. Add these lines to your ~/.profile to automatically run it:
-```
+``` sh
 if [ "$IN_NIX_CHROOT" != 1 ]; then
     export IN_NIX_CHROOT=1
     exec ~/.local/bin/nix-user-chroot ~/.nix $SHELL -l
@@ -76,7 +76,7 @@ We don't use home manager to manage ~/.profile because it would create a symlink
 
 # Configuring
 Configure home-manager as you would [usually](https://nix-community.github.io/home-manager/index.xhtml#ch-usage) (editing the home.nix file). To apply changes run:
-```
+``` sh
 home-manager switch
 ```
 
